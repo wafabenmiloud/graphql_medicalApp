@@ -1,0 +1,90 @@
+mutation {
+  registerUser(input: {
+    name: "Dr. John Doe"
+    email: "john.doe2@example.com"
+    password: "securePassword123"
+    role: "DOCTOR"   # or "PATIENT"
+  }) {
+    user {
+      id
+      name
+      email
+      role
+      createdAt
+    }
+    token
+  }
+}
+mutation {
+  login(email: "john.doe2@example.com", password: "securePassword123") {
+    user {
+      id
+      name
+      email
+      role
+      createdAt
+    }
+    token
+  }
+}
+
+query {
+  getDoctorsBySpecialty(specialty: "Généraliste", city: "Tunis") {
+    id
+    name
+    specialty
+    city
+    userId
+  }
+}
+mutation {
+  createTimeSlot(doctorId: "685c3018587d707471de0d66", date: "2026-06-01", time: "10:00") {
+    id
+    doctorId
+    date
+    time
+    available
+  }
+}
+query {
+  getAvailableSlots(doctorId: "685bdd573714c5e3feb21a7f", date: "2026-06-01") {
+    id
+    doctorId
+    date
+    time
+    available
+  }
+}
+mutation {
+  bookAppointment(
+    patientId: "685c30b8587d707471de0d6a"
+    doctorId: "685c3018587d707471de0d66"
+    date: "2026-06-01"
+    time: "10:00"
+  ) {
+    id
+    patientId
+    doctorId
+    date
+    time
+    status
+  }
+}
+
+mutation {
+  cancelAppointment(appointmentId: "685c3f052ef3058aab45c0f2")
+}
+
+query {
+  getUserAppointments(userId: "685bdd573714c5e3feb21a7f") {
+    id
+    patientId
+    doctorId
+    date
+    time
+    status
+  }
+}
+
+
+
